@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERO CLINIC - حاسبة مؤشر كتلة الجسم</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #000000;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #00c2fe;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #555;
+        }
+        .logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, #ff5e62, #ff9966);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: block;
+    width: fit-content;
+    margin: 20px auto; /* يجعل اللوجو في المنتصف */
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>MERO CLINIC</h2>
+        <h3>حاسبة مؤشر كتلة الجسم</h3>
+        <input type="number" id="weight" placeholder="الوزن بالكيلوغرام">
+        <input type="number" id="height" placeholder="الطول بالمتر">
+        <button onclick="calculateBMI()">احسب</button>
+        <div class="result" id="result"></div>
+        <h3>خطة الرجيم</h3>
+      <button onclick="window.location.href='SPORT.HTML'">احصل على خطة الرجيم</button>
+
+
+        <div class="footer">© 2025 MERO CLINIC - جميع الحقوق محفوظة</div>
+    </div>
+    <script>
+        function calculateBMI() {
+            let weight = document.getElementById('weight').value;
+            let height = document.getElementById('height').value;
+            
+            if (weight > 0 && height > 0) {
+                let bmi = (weight / (height * height)).toFixed(2);
+                let status = '';
+                if (bmi < 18.5) status = 'نحافة';
+                else if (bmi >= 18.5 && bmi < 24.9) status = 'وزن طبيعي';
+                else if (bmi >= 25 && bmi < 29.9) status = 'وزن زائد';
+                else status = 'سمنة';
+                
+                document.getElementById('result').innerHTML = `مؤشر كتلة جسمك: <strong>${bmi}</strong> - ${status}`;
+            } else {
+                document.getElementById('result').innerHTML = "يرجى إدخال قيم صحيحة";
+            }
+        }
+
+        function redirectToDietPlan() {
+            window.location.href = "diet_plan.html";
+        }
+    </script>
+</body>
+</html>

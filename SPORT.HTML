@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطة الرجيم - MERO CLINIC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to right, #4facfe, #4facfe);
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+        textarea {
+            width: 100%;
+            height: 60px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+        }
+        button {
+            background: #000000;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #3300ed;
+        }
+        .app-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background: #000000;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+p {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'">العودة</button>
+    <h1></h1>
+
+    <div class="app-title">MERO CLINIC</div>
+<div class="container"><h3>حاسبة السعرات الحرارية</h3>
+    <input type="text" id="foodItem" placeholder="أدخل نوع الطعام">
+    <input type="number" id="quantity" placeholder="أدخل الكمية (جرام)">
+    <button onclick="calculateCalories()">احسب السعرات</button>
+    <p id="calorieResult"></p>
+    </div>
+    <h1></h1>
+
+    <link href="index.html" >
+    <div class="container">
+        <h2>إعداد خطة الرجيم</h2>
+        <h3>تنظيم الأكل</h3>
+        <textarea id="foodPlan" placeholder="أدخل خطة الأكل..."></textarea>
+        
+        <h3>تنظيم الرياضة</h3>
+        <textarea id="exercisePlan" placeholder="أدخل خطة الرياضة..."></textarea>
+        
+        <h3>جدول دراسي</h3>
+        <textarea id="studyPlan" placeholder="أدخل جدول الدراسة..."></textarea>
+        
+        <button onclick="savePlan()">حفظ الخطة</button>
+        <button onclick="goBack()">العودة</button>
+        <button onclick="downloadPlan()">تحميل الخطة</button>
+    </div>
+    <script>
+function calculateCalories() {
+    let foodItem = document.getElementById("foodItem").value.toLowerCase();
+    let quantity = document.getElementById("quantity").value;
+
+    // قائمة السعرات الحرارية لكل 100 جرام
+    let calorieData = {
+        "أرز": 130, "خبز": 265, "دجاج": 165, "لحم": 250, "سمك": 206
+        "تفاح": 52, "موز": 89, "برتقال": 47, "عنب": 69, "رمان": 83,
+        "تمر": 277, "فراولة": 32, "أناناس": 50, "مانجو": 60, "كيوي": 61
+        "بيض": 155, "جبن": 402, "حليب": 42, "زبادي": 59, "زبدة": 717,
+        "عدس": 116, "فول": 341, "حمص": 164, "ذرة": 86, "بطاطا": 77,
+        "بطاطس مقلية": 312, "معكرونة": 131, "بيتزا": 266, "برجر": 295,
+        "شاورما": 350, "كباب": 250, "لحم مفروم": 250, "تونة": 132,
+        "سلمون": 208, "جمبري": 99, "لب": 574, "فستق": 567, "لوز": 579,
+        "كاجو": 553, "جوز": 654, "شوكولاتة": 546, "عسل": 304,
+        "كوكاكولا": 42, "عصير برتقال": 45, "قهوة": 2, "شاي": 1
+    };
+
+    if (foodItem in calorieData) {
+        let calories = (calorieData[foodItem] / 100) * quantity;
+        document.getElementById("calorieResult").innerText = `السعرات الحرارية: ${calories.toFixed(2)} kcal`;
+    } else {
+        document.getElementById("calorieResult").innerText = "⚠️ هذا الطعام غير مسجل في قاعدة البيانات.";
+    }
+}
+
+
+
+        function savePlan() {
+            let food = document.getElementById('foodPlan').value;
+            let exercise = document.getElementById('exercisePlan').value;
+            let study = document.getElementById('studyPlan').value;
+            
+            if (food && exercise && study) {
+                localStorage.setItem('foodPlan', food);
+                localStorage.setItem('exercisePlan', exercise);
+                localStorage.setItem('studyPlan', study);
+                alert("تم حفظ الخطة بنجاح!");
+            } else {
+                alert("يرجى ملء جميع الحقول قبل الحفظ!");
+            }
+        }
+
+        function goBack() {
+            window.location.href = "index.html";
+        }
+
+        function downloadPlan() {
+            let food = localStorage.getItem('foodPlan') || "لا توجد بيانات";
+            let exercise = localStorage.getItem('exercisePlan') || "لا توجد بيانات";
+            let study = localStorage.getItem('studyPlan') || "لا توجد بيانات";
+            
+            let planContent = `خطة الرجيم:\n\nتنظيم الأكل:\n${food}\n\nتنظيم الرياضة:\n${exercise}\n\nجدول دراسي:\n${study}`;
+            let blob = new Blob([planContent], { type: "text/plain" });
+            let a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "diet_plan.txt";
+            a.click();
+        }
+    </script>
+</body>
+</html>
